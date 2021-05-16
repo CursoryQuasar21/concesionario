@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="moto">
+      <h2 data-cy="motoDetailsHeading"><span jhiTranslate="concesionarioApp.moto.detail.title">Moto</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ moto.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="concesionarioApp.moto.color">Color</span></dt>
+        <dd>
+          <span>{{ moto.color }}</span>
+        </dd>
+        <dt><span jhiTranslate="concesionarioApp.moto.modelo">Modelo</span></dt>
+        <dd>
+          <span>{{ moto.modelo }}</span>
+        </dd>
+        <dt><span jhiTranslate="concesionarioApp.moto.marca">Marca</span></dt>
+        <dd>
+          <span>{{ moto.marca }}</span>
+        </dd>
+        <dt><span jhiTranslate="concesionarioApp.moto.anio">Anio</span></dt>
+        <dd>
+          <span>{{ moto.anio | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="concesionarioApp.moto.precio">Precio</span></dt>
+        <dd>
+          <span>{{ moto.precio }}</span>
+        </dd>
+        <dt><span jhiTranslate="concesionarioApp.moto.venta">Venta</span></dt>
+        <dd>
+          <div *ngIf="moto.venta">
+            <a [routerLink]="['/venta', moto.venta?.id, 'view']">{{ moto.venta?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/moto', moto.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

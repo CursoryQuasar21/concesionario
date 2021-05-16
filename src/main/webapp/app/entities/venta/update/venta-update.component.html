@@ -1,0 +1,238 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-venta-heading" data-cy="VentaCreateUpdateHeading" jhiTranslate="concesionarioApp.venta.home.createOrEditLabel">
+        Create or edit a Venta
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label id="id_Venta" class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="concesionarioApp.venta.fecha" for="field_fecha">Fecha</label>
+          <div class="d-flex">
+            <input
+              id="field_fecha"
+              data-cy="fecha"
+              type="datetime-local"
+              class="form-control"
+              name="fecha"
+              formControlName="fecha"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="concesionarioApp.venta.cliente" for="field_cliente">Cliente</label>
+          <select class="form-control" id="field_cliente" data-cy="cliente" name="cliente" formControlName="cliente">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="clienteOption.id === editForm.get('cliente')!.value?.id ? editForm.get('cliente')!.value : clienteOption"
+              *ngFor="let clienteOption of clientesSharedCollection; trackBy: trackClienteById"
+            >
+              {{ clienteOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="concesionarioApp.venta.empleado" for="field_empleado">Empleado</label>
+          <select class="form-control" id="field_empleado" data-cy="empleado" name="empleado" formControlName="empleado">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="empleadoOption.id === editForm.get('empleado')!.value?.id ? editForm.get('empleado')!.value : empleadoOption"
+              *ngFor="let empleadoOption of empleadosSharedCollection; trackBy: trackEmpleadoById"
+            >
+              {{ empleadoOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div>
+          <h2 class="text-muted" jhiTranslate="concesionarioApp.coche.home.title">Coches</h2>
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 33.3%"
+              aria-valuenow="35"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+            <div
+              class="progress-bar bg-success"
+              role="progressbar"
+              style="width: 33.4%"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 33.3%"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+          <table class="table table-hover" id="tablaCoches">
+            <thead>
+              <tr>
+                <th class="table-dark" scope="col" jhiTranslate="concesionarioApp.coche.id" for="field_id">Id</th>
+                <th class="table-dark" scope="col" jhiTranslate="concesionarioApp.coche.color" for="field_color">Color</th>
+                <th class="table-dark" scope="col" jhiTranslate="concesionarioApp.coche.modelo" for="field_modelo">Modelo</th>
+                <th class="table-dark" scope="col" jhiTranslate="concesionarioApp.coche.marca" for="field_marca">Marca</th>
+                <th class="table-dark" scope="col" jhiTranslate="concesionarioApp.coche.anio" for="field_anio">Año</th>
+                <th class="table-dark" scope="col" jhiTranslate="concesionarioApp.coche.precio" for="field_precio">Precio</th>
+                <th class="table-dark" scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let cocheOption of cochesSharedCollection; trackBy: trackCocheById; let i = index"
+                [ngClass]="{ 'table-active': i % 2 !== 0 }"
+              >
+                <td>{{ cocheOption.id }}</td>
+                <td>{{ cocheOption.color }}</td>
+                <td>{{ cocheOption.modelo }}</td>
+                <td>{{ cocheOption.marca }}</td>
+                <td>{{ cocheOption.anio }}</td>
+                <td>{{ cocheOption.precio }}</td>
+                <td>
+                  <button
+                    [ngClass]="{ 'btn-outline-primary': cocheOption.venta === null, 'btn-outline-danger': cocheOption.venta !== null }"
+                    id="botonCocheAnadir{{ i }}"
+                    type="button"
+                    class="btn btn-outline-primary"
+                    (click)="anadirCoche(cocheOption, $event.target)"
+                    for="botonAñadir"
+                  >
+                    {{ cocheOption.venta === null ? 'Añadir' : 'Eliminar' }}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <ul class="list-group" id="listaCochesComprar">
+            <li *ngFor="let cocheOption of listaCochesComprar" class="list-group-item d-flex justify-content-between align-items-center">
+              {{ cocheOption.id }}-{{ cocheOption.color }}-{{ cocheOption.modelo }}-{{ cocheOption.marca }}-{{ cocheOption.anio }}-{{
+                cocheOption.precio
+              }}
+            </li>
+          </ul>
+        </div>
+        <br />
+        <br />
+        <br />
+        <div>
+          <h2 class="text-muted" jhiTranslate="concesionarioApp.moto.home.title">Motos</h2>
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 33.3%"
+              aria-valuenow="35"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+            <div
+              class="progress-bar bg-success"
+              role="progressbar"
+              style="width: 33.4%"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 33.3%"
+              aria-valuenow="30"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+          <table class="table table-hover" id="tablaMotos">
+            <thead>
+              <tr>
+                <th class="table-dark" scope="col" jhiTranslate="concesionarioApp.moto.id" for="field_id">Id</th>
+                <th class="table-dark" scope="col" jhiTranslate="concesionarioApp.moto.color" for="field_color">Color</th>
+                <th class="table-dark" scope="col" jhiTranslate="concesionarioApp.moto.modelo" for="field_modelo">Modelo</th>
+                <th class="table-dark" scope="col" jhiTranslate="concesionarioApp.moto.marca" for="field_marca">Marca</th>
+                <th class="table-dark" scope="col" jhiTranslate="concesionarioApp.moto.anio" for="field_anio">Año</th>
+                <th class="table-dark" scope="col" jhiTranslate="concesionarioApp.moto.precio" for="field_precio">Precio</th>
+                <th class="table-dark" scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let motoOption of motosSharedCollection; trackBy: trackMotoById; let i2 = index"
+                [ngClass]="{ 'table-active': i2 % 2 !== 0 }"
+              >
+                <td>{{ motoOption.id }}</td>
+                <td>{{ motoOption.color }}</td>
+                <td>{{ motoOption.modelo }}</td>
+                <td>{{ motoOption.marca }}</td>
+                <td>{{ motoOption.anio }}</td>
+                <td>{{ motoOption.precio }}</td>
+                <td>
+                  <button
+                    [ngClass]="{ 'btn-outline-primary': motoOption.venta === null, 'btn-outline-danger': motoOption.venta !== null }"
+                    id="botonCocheAnadir{{ i2 }}"
+                    type="button"
+                    class="btn btn-outline-primary"
+                    (click)="anadirMoto(motoOption, $event.target)"
+                    for="botonAñadir"
+                  >
+                    {{ motoOption.venta === null ? 'Añadir' : 'Eliminar' }}
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <ul class="list-group" id="listaMotosComprar">
+            <li *ngFor="let motoOption of listaMotosComprar" class="list-group-item d-flex justify-content-between align-items-center">
+              {{ motoOption.id }}-{{ motoOption.color }}-{{ motoOption.modelo }}-{{ motoOption.marca }}-{{ motoOption.anio }}-{{
+                motoOption.precio
+              }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="card text-white bg-dark mb-3" style="max-width: 20rem">
+          <div class="card-body">
+            <h2 class="card-title">Total de la Compra:</h2>
+            <hr color="white" />
+            <h4>{{ total }}</h4>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

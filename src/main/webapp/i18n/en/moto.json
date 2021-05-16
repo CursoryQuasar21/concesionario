@@ -1,0 +1,29 @@
+{
+  "concesionarioApp": {
+    "moto": {
+      "home": {
+        "title": "Motos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Moto",
+        "createOrEditLabel": "Create or edit a Moto",
+        "notFound": "No Motos found"
+      },
+      "created": "A new Moto is created with identifier {{ param }}",
+      "updated": "A Moto is updated with identifier {{ param }}",
+      "deleted": "A Moto is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Moto {{ id }}?"
+      },
+      "detail": {
+        "title": "Moto"
+      },
+      "id": "ID",
+      "color": "Color",
+      "modelo": "Modelo",
+      "marca": "Marca",
+      "anio": "Anio",
+      "precio": "Precio",
+      "venta": "Venta"
+    }
+  }
+}

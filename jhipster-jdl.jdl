@@ -1,0 +1,44 @@
+//entidades
+entity Empleado {
+	nombre String,
+	apellidos String,
+	dni String,
+}
+entity Cliente{
+	nombre String,
+    apellidos String,
+    dni String
+}
+entity Coche{
+	color String,
+    modelo String,
+    marca String,
+    anio Instant,
+    precio Double,
+}
+entity Moto{
+	color String,
+    modelo String,
+    marca String,
+    anio Instant
+    precio Double,
+}
+entity Venta{
+    total Double,
+    fecha Instant,
+}
+relationship OneToMany{
+	Venta to Coche
+}
+relationship OneToMany{
+	Venta to Moto
+}
+relationship OneToMany{
+	Cliente to Venta
+}
+relationship OneToMany{
+	Empleado to Venta
+}
+// Set pagination options
+paginate all with pagination
+service all with serviceImpl

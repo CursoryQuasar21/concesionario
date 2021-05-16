@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="venta">
+      <h2 data-cy="ventaDetailsHeading"><span jhiTranslate="concesionarioApp.venta.detail.title">Venta</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ venta.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="concesionarioApp.venta.total">Total</span></dt>
+        <dd>
+          <span>{{ venta.total }}</span>
+        </dd>
+        <dt><span jhiTranslate="concesionarioApp.venta.fecha">Fecha</span></dt>
+        <dd>
+          <span>{{ venta.fecha | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="concesionarioApp.venta.cliente">Cliente</span></dt>
+        <dd>
+          <div *ngIf="venta.cliente">
+            <a [routerLink]="['/cliente', venta.cliente?.id, 'view']">{{ venta.cliente?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="concesionarioApp.venta.empleado">Empleado</span></dt>
+        <dd>
+          <div *ngIf="venta.empleado">
+            <a [routerLink]="['/empleado', venta.empleado?.id, 'view']">{{ venta.empleado?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/venta', venta.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

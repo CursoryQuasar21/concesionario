@@ -1,0 +1,82 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-moto-heading" data-cy="MotoCreateUpdateHeading" jhiTranslate="concesionarioApp.moto.home.createOrEditLabel">
+        Create or edit a Moto
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="concesionarioApp.moto.color" for="field_color">Color</label>
+          <input type="text" class="form-control" name="color" id="field_color" data-cy="color" formControlName="color" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="concesionarioApp.moto.modelo" for="field_modelo">Modelo</label>
+          <input type="text" class="form-control" name="modelo" id="field_modelo" data-cy="modelo" formControlName="modelo" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="concesionarioApp.moto.marca" for="field_marca">Marca</label>
+          <input type="text" class="form-control" name="marca" id="field_marca" data-cy="marca" formControlName="marca" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="concesionarioApp.moto.anio" for="field_anio">Anio</label>
+          <div class="d-flex">
+            <input
+              id="field_anio"
+              data-cy="anio"
+              type="datetime-local"
+              class="form-control"
+              name="anio"
+              formControlName="anio"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="concesionarioApp.moto.precio" for="field_precio">Precio</label>
+          <input type="number" class="form-control" name="precio" id="field_precio" data-cy="precio" formControlName="precio" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="concesionarioApp.moto.venta" for="field_venta">Venta</label>
+          <select class="form-control" id="field_venta" data-cy="venta" name="venta" formControlName="venta">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="ventaOption.id === editForm.get('venta')!.value?.id ? editForm.get('venta')!.value : ventaOption"
+              *ngFor="let ventaOption of ventasSharedCollection; trackBy: trackVentaById"
+            >
+              {{ ventaOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

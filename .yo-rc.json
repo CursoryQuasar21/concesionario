@@ -41,6 +41,8 @@
     "jwtSecretKey": "NmZmZDI4YTVjMmIyN2VhNmM5YWNlMzEyOGU0YzU5ZTBjZjY0YjhmMTJiZmIwMDIxYWJmYjM3NjZlOTA0YjRhYzJmNjE2OGMyZTA3M2FhODAwMzc2MGY0Mjg4ODdjYzIzNmNlMjg1NDVlN2NiNTVjYjNkOGE3MDMyYjNkMmI0ZDI=",
     "clientPackageManager": "npm",
     "clientThemeVariant": "",
-    "languages": ["es", "en"]
+    "languages": ["es", "en"],
+    "entities": ["Empleado", "Cliente", "Coche", "Moto", "Venta"],
+    "lastLiquibaseTimestamp": 1618387899000
   }
 }

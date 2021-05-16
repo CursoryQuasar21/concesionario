@@ -1,0 +1,43 @@
+{
+  "name": "Coche",
+  "fields": [
+    {
+      "fieldName": "color",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modelo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "marca",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "anio",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "precio",
+      "fieldType": "Double"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "venta",
+      "otherEntityRelationshipName": "coche",
+      "relationshipName": "venta"
+    }
+  ],
+  "entityTableName": "coche",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210414081137"
+}

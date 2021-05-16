@@ -95,6 +95,7 @@
   },
   "defaultProject": "concesionario",
   "cli": {
+    "analytics": false,
     "packageManager": "npm"
   }
 }
